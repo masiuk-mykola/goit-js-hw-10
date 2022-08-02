@@ -37,3 +37,19 @@ ul {
 .country-name {
   font-weight: 500;
 }
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.country-inform {
+  font-weight: 500;
+}
+
+.info {
+  font-weight: normal;
+}
+.large {
+  font-size: larger;
+}
