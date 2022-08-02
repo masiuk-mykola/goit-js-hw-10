@@ -19,23 +19,28 @@ refs.input.addEventListener('input', debounce(inputHandler, DEBOUNCE_DELAY));
 
 function inputHandler(e) {
   let inputValue = e.target.value.trim();
-  fetchCountries(inputValue)
-    .then(data => {
-      if (data.length === 1) {
-        const markup = createCardMarkup(data);
-        renderCard(markup);
-      } else if (data.length > 10) {
-        Notify.info(
-          'Too many matches found. Please enter a more specific name.'
-        );
-      } else if (data.length >= 2 && data.length < 10) {
-        const markup = createListMarkup(data);
-        renderList(markup);
-      }
-    })
-    .catch(error => {
-      return Notify.failure('Oops, there is no country with that name');
-    });
+  if (inputValue !== '') {
+    fetchCountries(inputValue)
+      .then(data => {
+        if (data.length === 1) {
+          const markup = createCardMarkup(data);
+          renderCard(markup);
+        } else if (data.length > 10) {
+          Notify.info(
+            'Too many matches found. Please enter a more specific name.'
+          );
+        } else if (data.length >= 2 && data.length <= 10) {
+          const markup = createListMarkup(data);
+          renderList(markup);
+        }
+      })
+      .catch(error => {
+        return Notify.failure('Oops, there is no country with that name');
+      });
+  } else {
+    refs.list.innerHTML = '';
+    refs.div.innerHTML = '';
+  }
 }
 
 function createListMarkup(data) {
