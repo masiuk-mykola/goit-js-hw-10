@@ -29,12 +29,16 @@ function inputHandler(e) {
           Notify.info(
             'Too many matches found. Please enter a more specific name.'
           );
+          refs.list.innerHTML = '';
+          refs.div.innerHTML = '';
         } else if (data.length >= 2 && data.length <= 10) {
           const markup = createListMarkup(data);
           renderList(markup);
         }
       })
       .catch(error => {
+        refs.list.innerHTML = '';
+        refs.div.innerHTML = '';
         return Notify.failure('Oops, there is no country with that name');
       });
   } else {
